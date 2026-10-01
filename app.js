@@ -85,11 +85,16 @@
     }
 
     if (data.reflexoes.length) {
-      text(QUESTION.toUpperCase(), 24, '600', '#6b7280', 34, 0, '3px'); y += 20;
+      text('AUTOANÁLISE', 24, '600', '#6b7280', 34, 0, '3px'); y += 20;
       data.reflexoes.forEach(function (r) {
         text(r.q, 28, '500', '#6b7280', 40); y += 6;
         text(r.a, 34, '400', '#1f2937', 50); y += 28;
       });
+    }
+
+    if (data.caminhos) {
+      text(QUESTION.toUpperCase(), 24, '600', '#6b7280', 34, 0, '3px'); y += 20;
+      text(data.caminhos, 34, '400', '#1f2937', 50); y += 28;
     }
 
     if (data.promessa) {
@@ -137,6 +142,7 @@
     var pr = document.querySelector('.promessa');
     var promessa = pr.querySelector('textarea').value.trim();
     return {
+      caminhos: document.getElementById('caminhos').value.trim(),
       promessa: promessa ? { q: pr.querySelector('span').textContent, a: promessa } : null,
       nome: document.getElementById('nome').value.trim(),
       acoes: acoes,
