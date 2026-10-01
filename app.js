@@ -83,9 +83,12 @@
       y += 20;
     }
 
-    if (data.texto) {
-      text(QUESTION.toUpperCase(), 24, '600', '#6b7280', 34, 0, '3px'); y += 8;
-      text(data.texto, 36, '400', '#1f2937', 54); y += 20;
+    if (data.reflexoes.length) {
+      text(QUESTION.toUpperCase(), 24, '600', '#6b7280', 34, 0, '3px'); y += 20;
+      data.reflexoes.forEach(function (r) {
+        text(r.q, 28, '500', '#6b7280', 40); y += 6;
+        text(r.a, 34, '400', '#1f2937', 50); y += 28;
+      });
     }
 
     y += 24;
@@ -119,22 +122,35 @@
         acoes.push({ titulo: li.querySelector('b').textContent, sub: s ? s.textContent : '' });
       }
     });
+    var reflexoes = [];
+    card.querySelectorAll('.reflex').forEach(function (r) {
+      var a = r.querySelector('textarea').value.trim();
+      if (a) reflexoes.push({ q: r.querySelector('span').textContent, a: a });
+    });
     return {
       nome: document.getElementById('nome').value.trim(),
       acoes: acoes,
-      texto: document.getElementById('atraindo').value.trim()
+      reflexoes: reflexoes
     };
   }
 
+  // Imagem sempre em tela cheia de celular (9:16), com ou sem muito conteúdo.
   function render() {
-    var W = 1080, data = collect();
+    var W = 1080, H = 1920, data = collect();
     var c = document.createElement('canvas');
+    c.width = W; c.height = H;
     var ctx = c.getContext('2d');
-    c.width = W;
-    var H = layout(ctx, W, false, data);
-    c.height = H;
+    var scale = 1.2, h = layout(ctx, W / scale, false, data);
+    while (h * scale > H && scale > 0.4) {
+      scale -= 0.04;
+      h = layout(ctx, W / scale, false, data);
+    }
     ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, H);
-    layout(ctx, W, true, data);
+    ctx.save();
+    ctx.translate(0, Math.max(0, (H - h * scale) / 2));
+    ctx.scale(scale, scale);
+    layout(ctx, W / scale, true, data);
+    ctx.restore();
     return c;
   }
 
