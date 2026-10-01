@@ -22,15 +22,9 @@
     <li><label><input type="checkbox"><span class="box"></span><span><b>Orar e meditar nos textos das promessas</b></span></label></li>
     <li><label><input type="checkbox"><span class="box"></span><span><b>Ouvir e meditar em músicas que falam sobre a esperança e a vinda de Jesus</b></span></label></li>
     <li><label><input type="checkbox"><span class="box"></span><span><b>Estar no culto, lembrando das promessas de Deus</b></span></label></li>
-    <li><label><input type="checkbox"><span class="box"></span><span><b>Fazer a autoanálise: trabalho, estudo, amizades e família</b><small>Alguma dessas áreas está ocupando o lugar de Deus?</small></span></label></li>
+    <li><label><input type="checkbox" id="autoanalise"><span class="box"></span><span><b>Fazer a autoanálise: trabalho, estudo, amizades e família</b><small>Alguma dessas áreas está ocupando o lugar de Deus?</small></span></label></li>
     <li><label><input type="checkbox"><span class="box"></span><span><b>Abrir mão de algo por um tempo, lembrando que estou de passagem</b></span></label></li>
   </ul>
-
-  <h2>Tem alguma coisa que está fazendo com que eu volte para os caminhos antigos?</h2>
-  <label class="reflex"><span>Como estou me relacionando com a escola e os estudos? Eles vêm tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="escola"></textarea></label>
-  <label class="reflex"><span>Como estou me relacionando com as minhas amizades? Elas vêm tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="amizades"></textarea></label>
-  <label class="reflex"><span>Como estou me relacionando com a minha família? Ela vem tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="família"></textarea></label>
-  <label class="reflex"><span>Como estou me relacionando com os meus relacionamentos? Eles vêm tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="relacionamentos"></textarea></label>
 
   <h2>Promessas</h2>
   <label class="reflex promessa"><span>Das promessas que li esta noite, o que mais me chamou a atenção?</span><textarea rows="2" aria-label="Das promessas que li esta noite, o que mais me chamou a atenção?"></textarea></label>
@@ -43,6 +37,20 @@
   <button type="button" id="save">Salvar imagem</button>
   <button type="button" id="clear" class="ghost">Limpar</button>
   <p class="hint">A imagem é salva na sua galeria. Se abrir um menu, escolha <b>Salvar imagem</b>.</p>
+</div>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="panel" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <h2 id="sheet-title">Tem alguma coisa que está fazendo com que eu volte para os caminhos antigos?</h2>
+    <label class="reflex"><span>Como estou me relacionando com a escola e os estudos? Eles vêm tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="escola"></textarea></label>
+    <label class="reflex"><span>Como estou me relacionando com as minhas amizades? Elas vêm tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="amizades"></textarea></label>
+    <label class="reflex"><span>Como estou me relacionando com a minha família? Ela vem tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="família"></textarea></label>
+    <label class="reflex"><span>Como estou me relacionando com os meus relacionamentos? Eles vêm tirando a minha perspectiva da vinda de Jesus?</span><textarea rows="2" aria-label="relacionamentos"></textarea></label>
+    <div class="toolbar">
+      <button type="button" id="go">Gerar imagem</button>
+      <button type="button" id="back" class="ghost">Voltar</button>
+    </div>
+  </div>
 </div>
 
 <script src="app.js"></script>

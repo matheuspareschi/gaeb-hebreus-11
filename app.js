@@ -1,9 +1,10 @@
 (function () {
-  var KEY = 'gaeb-hebreus-11';
+  var KEY = 'gaeb-hebreus-11-v2';
   var FONT = '-apple-system, "Helvetica Neue", Arial, sans-serif';
   var QUESTION = 'Tem alguma coisa que está fazendo com que eu volte para os caminhos antigos?';
   var card = document.getElementById('card');
-  var fields = card.querySelectorAll('input, textarea');
+  var sheet = document.getElementById('sheet');
+  var fields = document.querySelectorAll('input, textarea');
 
   function load() {
     try {
@@ -21,8 +22,8 @@
     } catch (e) {}
   }
   load();
-  card.addEventListener('input', save);
-  card.addEventListener('change', save);
+  document.addEventListener('input', save);
+  document.addEventListener('change', save);
 
   document.getElementById('clear').addEventListener('click', function () {
     if (!confirm('Limpar todas as respostas?')) return;
@@ -129,11 +130,11 @@
       }
     });
     var reflexoes = [];
-    card.querySelectorAll('.reflex:not(.promessa)').forEach(function (r) {
+    if (document.getElementById('autoanalise').checked) document.querySelectorAll('.reflex:not(.promessa)').forEach(function (r) {
       var a = r.querySelector('textarea').value.trim();
       if (a) reflexoes.push({ q: r.querySelector('span').textContent, a: a });
     });
-    var pr = card.querySelector('.promessa');
+    var pr = document.querySelector('.promessa');
     var promessa = pr.querySelector('textarea').value.trim();
     return {
       promessa: promessa ? { q: pr.querySelector('span').textContent, a: promessa } : null,
@@ -163,7 +164,7 @@
     return c;
   }
 
-  document.getElementById('save').addEventListener('click', function () {
+  function generate() {
     var c = render();
     c.toBlob(function (blob) {
       var file = new File([blob], 'hebreus-11-13-16.png', { type: 'image/png' });
@@ -177,5 +178,11 @@
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(function () { URL.revokeObjectURL(a.href); }, 1000);
     }, 'image/png');
+  }
+
+  document.getElementById('save').addEventListener('click', function () {
+    if (document.getElementById('autoanalise').checked) sheet.hidden = false; else generate();
   });
+  document.getElementById('back').addEventListener('click', function () { sheet.hidden = true; });
+  document.getElementById('go').addEventListener('click', function () { sheet.hidden = true; generate(); });
 })();
