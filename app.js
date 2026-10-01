@@ -91,6 +91,12 @@
       });
     }
 
+    if (data.promessa) {
+      text('PROMESSAS', 24, '600', '#6b7280', 34, 0, '3px'); y += 20;
+      text(data.promessa.q, 28, '500', '#6b7280', 40); y += 6;
+      text(data.promessa.a, 34, '400', '#1f2937', 50); y += 28;
+    }
+
     y += 24;
     function note(label, rest) {
       ctx.font = '600 28px ' + FONT;
@@ -123,11 +129,14 @@
       }
     });
     var reflexoes = [];
-    card.querySelectorAll('.reflex').forEach(function (r) {
+    card.querySelectorAll('.reflex:not(.promessa)').forEach(function (r) {
       var a = r.querySelector('textarea').value.trim();
       if (a) reflexoes.push({ q: r.querySelector('span').textContent, a: a });
     });
+    var pr = card.querySelector('.promessa');
+    var promessa = pr.querySelector('textarea').value.trim();
     return {
+      promessa: promessa ? { q: pr.querySelector('span').textContent, a: promessa } : null,
       nome: document.getElementById('nome').value.trim(),
       acoes: acoes,
       reflexoes: reflexoes
